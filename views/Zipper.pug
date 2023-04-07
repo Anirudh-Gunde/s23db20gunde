@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= title
+  - var results = Zipper;
+  div(class="container_fluid")
+    each item, index in results
+        div(class="row" onclick = `buy(${index})`)       
+            div(class="col-sm-2") #{item.zipper_type}
+            div(class="col-sm-2") #{item.zipper_name}
+            div(class="col-sm-2") #{item.zipper_cost}
+  script.
+      function buy(indxnum){
+        alert('You purchased item'+ indxnum)
+      }
