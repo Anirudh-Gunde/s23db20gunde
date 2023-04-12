@@ -4,11 +4,28 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+require('dotenv').config();
+const connectionString =
+process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString,
+{useNewUrlParser: true,
+useUnifiedTopology: true});
+
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once("open", function(){
+console.log("Connection to DB succeeded")});
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var zipperRouter = require('./routes/Zipper');
 var boardRouter = require('./routes/board');
 var selectorRouter = require('./routes/selector');
+var zipper = require("./models/zipper");
+var resourceRouter = require("./routes/resource");
 
 var app = express();
 
@@ -22,11 +39,42 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/zipper', zipperRouter);
 app.use('/board', boardRouter);
 app.use('/selector', selectorRouter);
+app.use('/Zipper',zipper);
+app.use('/resource',resourceRouter);
+
+async function recreateDB(){
+  // Delete everything
+  await zipper.deleteMany();
+  let instance1 = new zipper({zipper_type:"Sweatshirts", zipper_name:'GAP',zipper_cost:35});
+  
+  instance1.save().then( function(err,doc) {
+  if(err) return console.error(err);
+  console.log("First object saved")
+  });
+ 
+ let instance2 = new zipper({zipper_type:"Trouser", zipper_name:'CK',zipper_cost:50});
+  
+  instance2.save().then( function(err,doc) {
+  if(err) return console.error(err);
+  console.log("Second object saved")
+  });
+ 
+ let instance3 = new zipper({zipper_type:"Shirt", zipper_name:'Aeropostale',zipper_cost:25});
+  
+  instance3.save().then( function(err,doc) {
+  if(err) return console.error(err);
+  console.log("Third object saved")
+  });
+}
+ let reseed = true;
+ if (reseed) { recreateDB();}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

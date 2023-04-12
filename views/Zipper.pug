@@ -2,9 +2,9 @@ extends layout
 
 block content
   h1= title
-  - var results = Zipper;
+  - var Zipper = results;
   div(class="container_fluid")
-    each item, index in results
+    each item, index in Zipper
         div(class="row" onclick = `buy(${index})`)       
             div(class="col-sm-2") #{item.zipper_type}
             div(class="col-sm-2") #{item.zipper_name}
