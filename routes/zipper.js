@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
   let z2= new Zipper('Trouser','CK',50);
   let z3= new Zipper('Shirt','Aeropostale',25);
 
-res.render('Zipper', { title: 'Search Results Zipper',Zipper : [z1,z2,z3] });
+res.render('zipper', { title: 'Search Results Zipper',Zipper : [z1,z2,z3] });
 }); */
 
 router.get('/', zipper_controlers.zipper_view_all_Page );
