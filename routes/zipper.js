@@ -21,5 +21,7 @@ router.get('/', function(req, res, next) {
 res.render('zipper', { title: 'Search Results Zipper',Zipper : [z1,z2,z3] });
 }); */
 
+
+
 router.get('/', zipper_controlers.zipper_view_all_Page );
 module.exports = router;
