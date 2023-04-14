@@ -1,5 +1,5 @@
 var zipper = require('../models/zipper');
-// List of all Costumes
+// List of all zippers
 exports.zipper_list = async function(req, res) {
     try{
     thezipper = await zipper.find();
@@ -11,9 +11,17 @@ exports.zipper_list = async function(req, res) {
     }
 };
 // for a specific zipper.
-exports.zipper_detail = function(req, res) {
-res.send('NOT IMPLEMENTED: Zipper detail: ' + req.params.id);
-};
+exports.zipper_detail = async function(req, res) {
+    console.log("detail" + req.params.id)
+    try {
+    result = await zipper.findById( req.params.id)
+    res.send(result)
+    } catch (error) {
+    res.status(500)
+    res.send(`{"error": document for id ${req.params.id} not found`);
+    }
+   };
+
 // Handle Zipper create on POST.
 exports.zipper_create_post = async function(req, res) {
     console.log(req.body)
@@ -21,7 +29,7 @@ exports.zipper_create_post = async function(req, res) {
     // We are looking for a body, since POST does not have query parameters.
     // Even though bodies can be in many different formats, we will be picky
     // and require that it be a json object
-    // {"costume_type":"goat", "cost":12, "size":"large"}
+    // {"zipper_type":"goat", "cost":12, "size":"large"}
     document.zipper_type = req.body.zipper_type;
     document.zipper_name = req.body.zipper_name;
     document.zipper_cost = req.body.zipper_cost;
@@ -40,8 +48,24 @@ exports.zipper_delete = function(req, res) {
 res.send('NOT IMPLEMENTED: Zipper delete DELETE ' + req.params.id);
 };
 // Handle zipper update form on PUT.
-exports.zipper_update_put = function(req, res) {
-res.send('NOT IMPLEMENTED: Zipper update PUT' + req.params.id);
+exports.zipper_update_put = async function(req, res) {
+ console.log(`update on id ${req.params.id} with body
+${JSON.stringify(req.body)}`)
+ try {
+ let toUpdate = await zipper.findById( req.params.id)
+ // Do updates of properties
+ if(req.body.zipper_type)
+ toUpdate.zipper_type = req.body.zipper_type;
+ if(req.body.zipper_name) toUpdate.zipper_name = req.body.zipper_name;
+ if(req.body.zipper_cost) toUpdate.zipper_cost = req.body.zipper_cost;
+ let result = await toUpdate.save();
+ console.log("Sucess " + result)
+ res.send(result)
+ } catch (err) {
+ res.status(500)
+ res.send(`{"error": ${err}: Update for id ${req.params.id}
+failed`);
+ }
 };
 // VIEWS
 // Handle a show all view

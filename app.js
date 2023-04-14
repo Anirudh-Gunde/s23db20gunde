@@ -21,7 +21,7 @@ console.log("Connection to DB succeeded")});
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var zipperRouter = require('./routes/Zipper');
+var zipperRouter = require('./routes/zipper');
 var boardRouter = require('./routes/board');
 var selectorRouter = require('./routes/selector');
 var zipper = require("./models/zipper");
@@ -46,7 +46,7 @@ app.use('/users', usersRouter);
 app.use('/zipper', zipperRouter);
 app.use('/board', boardRouter);
 app.use('/selector', selectorRouter);
-app.use('/Zipper',zipper);
+app.use('/zipper',zipper);
 app.use('/resource',resourceRouter);
 
 async function recreateDB(){
