@@ -73,7 +73,7 @@ failed`);
 exports.zipper_view_all_Page = async function(req, res) {
     try{
     thezipper = await zipper.find();
-    res.render('Zipper', { title: 'Zipper Search Results', results: thezipper });
+    res.render('zipper', { title: 'Zipper Search Results', results: thezipper });
     }
     catch(err){
     res.status(500);
