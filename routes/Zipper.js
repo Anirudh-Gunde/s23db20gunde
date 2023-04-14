@@ -1,5 +1,5 @@
 var express = require('express');
-const zipper_controlers= require('../controllers/Zipper');
+const zipper_controlers= require('../controllers/zipper');
 var router = express.Router();
 
 /*
