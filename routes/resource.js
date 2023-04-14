@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 // Require controller modules.
 var api_controller = require('../controllers/api');
-var zipper_controller = require('./controllers/zipper')
+var zipper_controller = require('../controllers/zipper')
+
 /// API ROUTE ///
 // GET resources base.
 router.get('/', api_controller.api);
