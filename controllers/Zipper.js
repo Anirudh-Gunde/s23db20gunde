@@ -49,7 +49,7 @@ res.send('NOT IMPLEMENTED: Zipper update PUT' + req.params.id);
 exports.zipper_view_all_Page = async function(req, res) {
     try{
     thezipper = await zipper.find();
-    res.render('zipper', { title: 'Zipper Search Results', results: thezipper });
+    res.render('Zipper', { title: 'Zipper Search Results', results: thezipper });
     }
     catch(err){
     res.status(500);
