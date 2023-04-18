@@ -43,10 +43,18 @@ exports.zipper_create_post = async function(req, res) {
     }
     };
 
-// Handle zipper delete form on DELETE.
-exports.zipper_delete = function(req, res) {
-res.send('NOT IMPLEMENTED: Zipper delete DELETE ' + req.params.id);
-};
+// Handle zipper delete on DELETE.
+exports.zipper_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await zipper.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
+    };
 // Handle zipper update form on PUT.
 exports.zipper_update_put = async function(req, res) {
  console.log(`update on id ${req.params.id} with body
@@ -81,3 +89,44 @@ exports.zipper_view_all_Page = async function(req, res) {
     }
 }
 
+// Handle a show one view with id specified by query
+exports.zipper_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id)
+    try{
+    result = await zipper.findById( req.query.id)
+    res.render('zipperdetail',
+    { title: 'Zipper Detail', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+
+    // Handle building the view for creating a zipper.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.zipper_create_Page = function(req, res) {
+    console.log("create view")
+    try{
+    res.render('zippercreate', { title: 'Zipper Create'});
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+
+// Handle building the view for updating a zipper.
+// query provides the id
+exports.zipper_update_Page = async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+    let result = await zipper.findById(req.query.id)
+    res.render('zipperupdate', { title: 'Zipper Update', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };

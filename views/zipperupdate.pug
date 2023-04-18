@@ -1,0 +1,40 @@
+extends layout
+block content
+ h1= title
+ - let zipperid = toShow._id
+ - let zipper_type = toShow.zipper_type
+ - let zipper_name = toShow.zipper_name
+ - let zipper_cost = toShow.zipper_cost
+
+ div.row(class='mb-2')
+  div.mr-1 ID is
+  div #{zipperid}
+ - let actionid = "/resource/zipper/" + zipperid
+ form(id='zipperForm', action= actionid, method="PUT")
+   div.form-group
+     label.zipperAttr(for='zipper_type') zipper type
+     input#zipper_type(type='String', name='zipper_type', value= zipper_type )
+   div.form-group
+     label.zipperAttr(for='zipper_name') zipper Name
+     input#zipper_name(type='String', name='zipper_name', value= zipper_name )
+   div.form-group
+     label.zipperAttr(for='zipper_cost') zipper cost
+     input#zipper_cost(type='number', name='zipper_cost', value= zipper_cost )
+   input(type="submit")
+ script.
+   document.forms['zipperForm'].addEventListener('submit', (event) => {
+    event.preventDefault();
+    // TODO do something here to show user that form is being submitted
+    fetch(event.target.action, {
+     method: 'PUT',
+     body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+    }).then((resp) => {
+     return resp.json(); // or resp.text() or whatever the server sends
+    }).then((body) => {
+    alert("Update succeded")
+    // TODO handle body
+    }).catch((error) => {
+    // TODO handle error
+    alert("Update failed " + error )
+    });
+  });

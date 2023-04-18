@@ -27,6 +27,7 @@ var selectorRouter = require('./routes/selector');
 var zipper = require("./models/zipper");
 var resourceRouter = require("./routes/resource");
 
+
 var app = express();
 
 // view engine setup
@@ -48,6 +49,7 @@ app.use('/board', boardRouter);
 app.use('/selector', selectorRouter);
 app.use('/zipper',zipper);
 app.use('/resource',resourceRouter);
+
 
 async function recreateDB(){
   // Delete everything

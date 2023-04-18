@@ -24,4 +24,10 @@ res.render('zipper', { title: 'Search Results Zipper',Zipper : [z1,z2,z3] });
 
 
 router.get('/', zipper_controlers.zipper_view_all_Page );
+router.get('/detail', zipper_controlers.zipper_view_one_Page);
+router.get('/create', zipper_controlers.zipper_create_Page);
+router.get('/update', zipper_controlers.zipper_update_Page);
+router.get('/delete', zipper_controlers.zipper_delete_Page);
 module.exports = router;
+
+
