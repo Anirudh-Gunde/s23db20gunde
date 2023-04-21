@@ -1,0 +1,49 @@
+extends layout
+block content
+ h1= title
+ if (toShow == null)
+  h2 No instance to delete
+ else
+  - let zipperid = toShow._id
+  - let zipper_type = toShow.zipper_type
+  - let zipper_name = toShow.zipper_name
+  - let zipper_cost = toShow.zipper_cost
+  - let actionid = "/resource/zipper/" + zipperid
+  script let actionid = "#{actionid}"
+  div
+   div.row
+    div(class='zipperAttr mr-3') zipper ID is:
+    div #{zipperid}
+   div.row
+    div(class='zipperAttr mr-3') zipper Type is:
+    div #{zipper_type}
+   div.row
+    div(class='zipperAttr mr-3') zipper Size is:
+    div #{zipper_name}
+   div.row
+    div(class='zipperAttr mr-3') zipper Cost is:
+    div #{zipper_cost}
+  button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+  button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+ script.
+  function cancel() {
+  // Go back to the home page for the zipper collection
+  window.location.href='/zipper'
+  }
+ script.
+  function deleteOnid() {
+   console.log("starting delete")
+   // delete first
+   fetch(actionid, {
+    method: 'DELETE' // Don't need a body for the delete
+   }).then((resp) => {
+    return resp.json(); // or resp.text() or whatever the server sends
+   }).then((body) => {
+    alert("Delete succeded")
+   window.location.href='/zipper'
+   // TODO handle body
+   }).catch((error) => {
+   // TODO handle error
+    alert("Delete failed " + error )
+   });
+  }
