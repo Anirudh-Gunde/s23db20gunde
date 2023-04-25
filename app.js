@@ -21,7 +21,7 @@ console.log("Connection to DB succeeded")});
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var zipperRouter = require('./routes/zipper');
+var zipperRouter = require('./routes/Zipper');
 var boardRouter = require('./routes/board');
 var selectorRouter = require('./routes/selector');
 var zipper = require("./models/zipper");

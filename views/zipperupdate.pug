@@ -19,10 +19,10 @@ block content
       input#zipper_type(type='String', name='zipper_type', value= zipper_type )
     div.form-group
       label.zipperAttr(for='zipper_name') zipper Name
-      input#zipper_name(type='String', name='zipper_name', value= zipper_name )
+      input#zipper_name(type='String', name='zipper_name', value= zipper_name , minlength = '1', maxlength = '15')
     div.form-group
       label.zipperAttr(for='zipper_cost') zipper cost
-      input#zipper_cost(type='number', name='zipper_cost', value= zipper_cost )
+      input#zipper_cost(type='number', name='zipper_cost', value= zipper_costy, min='100' , max='1000' )
     input(type="submit")
   script.
     document.forms['zipperForm'].addEventListener('submit', (event) => {
